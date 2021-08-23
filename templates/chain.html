@@ -1,0 +1,28 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+
+  <div class="row mb-3">
+      <div class="col"></div>
+      <div class="col-lg-6" >
+        <div class="card">
+            <div class="card-header">
+            <h5 class="card-title">Blockchain: </h5>
+            </div>
+            {% for i in chain %}
+                <div class="card-body">
+                    <p> Indeks: {{i['index']}}</p>
+                    <p> Previous hash: {{i['previous_hash']}}</p>
+                    <p> Chosen: {{i['chosen']}}</p>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+      </div> 
+      
+      <div class="col"></div>    
+  </div> 
+ 
+</div>
+
+{% endblock %}

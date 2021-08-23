@@ -1,0 +1,110 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div  style="background-color: #e3f2fd; padding: 20px; margin-bottom: 20px;">
+
+        <a class="btn-home" style="padding-right: 10px;" >Početna strana</a>
+        <a class="btn-glas" style="padding-right: 10px;">Unos učesnika na izborima</a>
+        <a class="btn-user" style="padding-right: 10px;">Unos komisije na izborima</a>
+        <a href="/results" style="padding-right: 10px;float: right;">Rezultati</a>
+        <a href="/logout" style="padding-right: 10px; float: right;">Odjava</a>
+           
+    </div>  
+  <div class="row justify-content-center">
+    <div class="col-lg-12 home">
+      <div class="jumbotron text-center">
+        {% if data['started'] == 1 %}
+          <h2 id="naslov">Izbori su započeti</h2>
+          <p id="podnaslov">Kliknite dole za kraj izbora.</p>          
+        {% else %}
+          <h2>Dobro došli na sajt ovogodišnih izbora</h2>
+          <p>Kliknite dole za pokretanje izbora</p>
+        {% endif %}
+      </div>
+      <div style="text-align: center;">
+        <form action="/admin" method="post">
+          <button class="btn btn-primary btn-end" >Zatvori/Pokreni glasanje</button>       
+        </form>
+     </div>
+    </div>
+
+    <div class="col-lg-6 glas">
+      <form action="/admin" method="post">
+        <div class="form-group">
+          <label for="voting-options">Unesite kandidate: </label>
+          <textarea class="form-control" rows="5" id="voting-options" name="voting-options" placeholder="Novog kandidata unesite u sledećoj liniji ..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Začuvaj podatke</button>
+      </form>
+    </div>
+    <div class="col-lg-6 user">
+        <form action="/admin" method="POST">
+            <div class="form-group">
+                <label for="title">Korisničko ime</label>
+                <input type="text" class="form-control" id="title" name="user" placeholder="Unesite korisničko ime" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Šifra</label>
+                <input type="text" class="form-control" id="title" name="code" placeholder="Unesite šifru" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Začuvaj novog korisnika</button>      
+        </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    var i = 0;
+    let btnGlas = document.querySelector(".btn-glas");
+    let formaGlas = document.querySelector(".glas");
+    let btnHome = document.querySelector(".btn-home");
+    let formaHome = document.querySelector(".home");
+    let btnUser = document.querySelector(".btn-user");
+    let formaUser = document.querySelector(".user");
+
+    formaGlas.style.display = "none";
+    formaHome.style.display = "block";
+    formaUser.style.display = "none";
+    
+
+    btnHome.addEventListener("click", () => {
+        console.log("ajdee1");
+        formaGlas.style.display = "none";
+        formaHome.style.display = "block";
+        formaUser.style.display = "none";
+    });
+    btnGlas.addEventListener("click", () => {
+        console.log("ajdee2");
+        formaGlas.style.display = "block";
+        formaHome.style.display = "none";
+        formaUser.style.display = "none";
+    });
+    btnUser.addEventListener("click", () => {
+        console.log("ajdee3");
+        formaGlas.style.display = "none";
+        formaHome.style.display = "none";
+        formaUser.style.display = "block";
+    });
+
+
+    //ovde su ubaci da menja vreme
+    var myVar = setInterval(myTimer, 1000);
+    var tm = document.getElementById("podnaslov").innerHTML;
+
+    function myTimer() {
+      var d = new Date();
+
+      var h= 24-d.getHours();
+      var m= 59-d.getMinutes();
+      var s= 59-d.getSeconds();
+/*
+      document.getElementById("podnaslov").innerHTML = String((h-(h%10))/10) + String(h%10) + ":";
+      document.getElementById("podnaslov").innerHTML += String((m-(m%10))/10) + String(m%10) + ":";
+      document.getElementById("podnaslov").innerHTML += String((s-(s%10))/10) + String(s%10);
+*/
+      //document.getElementById("podnaslov").innerHTML = tm + 2;
+
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <style>
+            body {font-family: Arial, Helvetica, sans-serif;}
+            form {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+            
+            button {
+              background-color: #04AA6D;
+              color: white;
+              padding: 14px 20px;
+              margin: auto;
+              margin-bottom: 20px;
+              border: none;
+              cursor: pointer;
+              width: 150px;
+              display: block;
+            }
+            
+            button:hover {
+              opacity: 0.8;
+            }
+            
+          
+            
+            .container {
+              text-align: center;
+              padding: 20px;
+            }
+            
+            
+            h1 { padding-bottom: 20px; padding-top: 20px; text-align: center; color: #7c795d; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
+            
+            #main {              
+              width: 50%;              
+              padding: 20px;
+              margin: 0 auto;
+              margin-top: 20px;
+            }
+    
+            input[type=text] {
+                width: 40%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            span {
+              color: red;
+              text-align: center;
+            }
+            </style>
+    </head>
+    <body>       
+          <div  style="background-color: #e3f2fd; padding: 20px; margin-bottom: 20px; width: 60%; margin: auto;">
+
+            <a  style="padding-right: 10px; text-decoration: none; color: #7c795d;">Rezultati</a>
+            <a href="/logout" style="padding-right: 10px; float: right; text-decoration: none; color: #7c795d;">Odjava</a>
+              
+          </div>  
+          <div id="main">  
+
+            <form action="/unos_tokena" method="post">
+                <h1>Dobrodosli na izbore</h1>             
+          
+              <div class="container">
+                <span> {{ poruka }}</span><br><br>
+                <input type="text" id="token" name="token" placeholder="Unesite ovde vas token">            
+                
+              </div>
+              <button type="submit">Pokreni glasanje</button>
+            </form>
+          </div>
+    </body>
+</html>
