@@ -48,19 +48,17 @@ class Blockchain:
 		
 	# This is the function for proof of work
 	# and used to successfully mine the block
-	def proof_of_work(self, previous_proof):
-		new_proof = 1
-		check_proof = False
+	def valid_id(self, chain, id):
+		block_index = 1
 		
-		while check_proof is False:
-			hash_operation = hashlib.sha256(
-				str(new_proof**2 - previous_proof**2).encode()).hexdigest()
-			if hash_operation[:4] == '00000':
-				check_proof = True
-			else:
-				new_proof += 1
-				
-		return new_proof
+		while block_index < len(chain):
+			block = chain[block_index]
+			if block['proof'] == id:
+				return False				
+			
+			block_index += 1
+		
+		return True
 
 	def hash(self, block):
 		encoded_block = json.dumps(block, sort_keys=True).encode()

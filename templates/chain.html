@@ -13,6 +13,9 @@
                 <div class="card-body">
                     <p> Indeks: {{i['index']}}</p>
                     <p> Previous hash: {{i['previous_hash']}}</p>
+                    {% if i['proof'] != 1 %}
+                      <p> ID: {{ i['proof'] }}</p>
+                    {% endif %}
                     <p> Chosen: {{i['chosen']}}</p>
                 </div>
                 <hr>

@@ -45,7 +45,7 @@ def index():
 def display_chain():
     return render_template("chain.html", chain=blockchain.chain)
 
-@app.route('/mine_block', methods=['GET','POST'])
+@app.route('/valid_block', methods=['GET','POST'])
 def mine_block():
     valid = blockchain.chain_valid(blockchain.chain)
     return 'Blockchain valid ? : ' + str(valid)
@@ -94,32 +94,36 @@ def register():
   
 @app.route("/glasanje", methods=["GET", "POST"])
 def vote():
-  #  if "user" not in session or not session["user"] or not session["user"]["token"] or session["user"]["token"] != 1:
-   #     return redirect("/unos_tokena")
-   # print(session["user"])
     if "token" not in session or session["token"] != 1:
         return redirect("/unos_tokena")
 
+    ## Preuzimanje niz kandidata i slanje u html
+    ref = db.reference('Izbori')
+    data = ref.child('kandidati').get() 
 
     if request.method == "POST":
        
         izabrano = request.form['kand']
-        previous_block = blockchain.print_previous_block()
-        proof = 1
+
+        if izabrano == "Изаберите жељеног кандидата":
+            return render_template("glasanje.html", kandidati=data)
+
+        previous_block = blockchain.print_previous_block()        
         previous_hash = blockchain.hash(previous_block)
+        if "id" not in session or session["id"] == None:
+            proof = 1
+        else:
+            proof = session["id"]
         block = blockchain.create_block(proof, previous_hash, izabrano)
 
         #mozda bi bilo cool da se stampa u js
         print(block)
 
         session["token"] = 0
+        session["id"] = None
 
         return redirect("/unos_tokena")
-    else:
-        ## Preuzimanje niz kandidata i slanje u html
-        ref = db.reference('Izbori')
-        #print(ref.child('kandidati').get())
-        data = ref.child('kandidati').get()  
+    else: 
         return render_template("glasanje.html", kandidati=data)
 
 @app.route('/novi_token', methods=['GET','POST'])
@@ -181,31 +185,58 @@ def unos_tokena():
     if started != 1:
         return "<div style=\"text-align: center; margin-top: 150px; font-family: Stencil Std, fantasy;\"><h1>Glasanje je završeno</h1><a href=\"/logout\">povratak</a></div>"
 
+     #provera dali je glasanje online
+    ref = db.reference('Izbori')
+    data = ref.get()
+    online = data['online']
 
-    if request.method == 'POST':
-        token = request.form['token'] 
-        exists = False
-        k = "ajde"
+    if online != 1:
+        
+        if request.method == 'POST':
+            token = request.form['token'] 
+            exists = False
+            k = "ajde"
 
-        #ovde se vrsi provera tokena
-        ref = db.reference('Izbori')
-        data = ref.child('tokeni').get()
-        for key, val in data.items():
-            if str(val) == str(token):
-                print("hehe")
-                exists = True
-                k = key
+            #ovde se vrsi provera tokena
+            ref = db.reference('Izbori')
+            data = ref.child('tokeni').get()
+            for key, val in data.items():
+                if str(val) == str(token):
+                    print("hehe")
+                    exists = True
+                    k = key
 
-        if exists == True:
-            ref.child('tokeni').child(k).delete()
-            session["token"] = 1
-            return redirect('/glasanje') 
+            if exists == True:
+                ref.child('tokeni').child(k).delete()
+                session["token"] = 1
+                return redirect('/glasanje') 
+            else:
+                poruka = "* Uneti token nije validan!"
+                return render_template('unosTokena.html', poruka=poruka)
+        
         else:
-            poruka = "* Uneti token nije validan!"
+            poruka = ""
             return render_template('unosTokena.html', poruka=poruka)
+            
     else:
-        poruka = ""
-        return render_template('unosTokena.html', poruka=poruka)
+        if request.method == 'POST':
+            inputBLK = request.form.get('blk')
+            inputJMBG = request.form.get('jmbg')
+            inp = {'blk': inputBLK,
+                    'jmbg': inputJMBG}
+            id = blockchain.hash(inp)
+            valid = blockchain.valid_id(blockchain.chain, id)
+
+            if valid == False:
+                poruka = "* Uneseni podaci su vec korisceni ili nevalidni"
+                return render_template("check.html", poruka=poruka)
+            else:
+                session["id"] = id
+                session["token"] = 1
+                return redirect("/glasanje")
+        else:    
+            poruka = ""
+            return render_template("check.html", poruka=poruka)
 
 @app.route('/results', methods=['GET'])
 def show_results():
