@@ -67,8 +67,8 @@
     <body>   
       <div  style="background-color: #e3f2fd; padding: 20px; margin-bottom: 20px; width: 60%; margin: auto;">
 
-        <a href="/results" style="padding-right: 10px; text-decoration: none; color: #7c795d;">Rezultati</a>
-        <a href="/logout" style="padding-right: 10px; float: right; text-decoration: none; color: #7c795d;">Odjava</a>
+        <a href="/results" style="padding-right: 10px; text-decoration: none; color: #7c795d;">Резултати</a>
+        <a href="/logout" style="padding-right: 10px; float: right; text-decoration: none; color: #7c795d;">Одјава</a>
            
       </div>     
       <div id="main">  
@@ -76,15 +76,15 @@
          
 
         <form action="/novi_token" method="post">
-            <h1>Dobrodosli na izbore</h1>              
+            <h1>Добродошли на сајт гласања</h1>              
       
           <div class="container">
             <span>{{ poruka }}</span><br><br>
-            <label>Broj licne karte </label>
-            <input type="text" id="blk" name="blk" placeholder="Unesite ovde vas b.l.k">  <br>          
+            <label>Број личне карте </label>
+            <input type="text" id="blk" name="blk" placeholder="Унесите ваш број личне карте">  <br>          
           <!--  <input type="text" id="token" name="token" placeholder="Kliknite na dugme da preuzmete token">-->
           </div>
-          <button type="submit">Generisi token</button>
+          <button type="submit">Генериши токен</button>
         </form>
       </div>
     </body>

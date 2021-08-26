@@ -86,7 +86,7 @@ def register():
         if found == True:
             return redirect('/novi_token') 
         else:
-            poruka = "* Uneti podaci nisu validni"
+            poruka = "* Унети подаци нису валидни!"
             return render_template("log.html", poruka=poruka)
     else:
         poruka = ""  
@@ -136,7 +136,7 @@ def novi_token():
     data = ref.get()
     started = data['started']
     if started != 1:
-        return "<div style=\"text-align: center; margin-top: 150px; font-family: Stencil Std, fantasy;\"><h1>Glasanje je završeno</h1><a href=\"/logout\">povratak</a></div>"
+        return "<div style=\"text-align: center; margin-top: 150px; font-family: Stencil Std, fantasy;\"><h1>Гласање је завршено</h1><a href=\"/logout\">Повратак</a></div>"
 
 
     print(session["user"]["status"])
@@ -166,7 +166,7 @@ def novi_token():
             sub_ref.push(blk)
             return redirect("/prikaz_tokena/" + str(token))
         else:
-            poruka = "* Uneseni broj licne karte je vec upotrebljen!"
+            poruka = "* Број личне карте који сте унели није валидан!"
             return render_template('generisanjeTokena.html', poruka=poruka)
     else:
         poruka = ""
@@ -183,7 +183,7 @@ def unos_tokena():
     data = ref.get()
     started = data['started']
     if started != 1:
-        return "<div style=\"text-align: center; margin-top: 150px; font-family: Stencil Std, fantasy;\"><h1>Glasanje je završeno</h1><a href=\"/logout\">povratak</a></div>"
+        return "<div style=\"text-align: center; margin-top: 150px; font-family: Stencil Std, fantasy;\"><h1>Гласање је завршено</h1><a href=\"/logout\">Повратак</a></div>"
 
      #provera dali je glasanje online
     ref = db.reference('Izbori')
@@ -211,7 +211,7 @@ def unos_tokena():
                 session["token"] = 1
                 return redirect('/glasanje') 
             else:
-                poruka = "* Uneti token nije validan!"
+                poruka = "* Унети токен није валидан!"
                 return render_template('unosTokena.html', poruka=poruka)
         
         else:
@@ -228,7 +228,7 @@ def unos_tokena():
             valid = blockchain.valid_id(blockchain.chain, id)
 
             if valid == False:
-                poruka = "* Uneseni podaci su vec korisceni ili nevalidni"
+                poruka = "* Унесени подаци су невалидни или искоришћени!"
                 return render_template("check.html", poruka=poruka)
             else:
                 session["id"] = id
@@ -245,7 +245,7 @@ def show_results():
     data = ref.get()
     started = data['started']
     if started  == 1:
-        return "<div style=\"text-align: center; margin-top: 150px; font-family: Stencil Std, fantasy;\"><h1>glasanje je u toku</h1><a href=\"/logout\">povratak</a></div>"
+        return "<div style=\"text-align: center; margin-top: 150px; font-family: Stencil Std, fantasy;\"><h1>Гласање је у току</h1><a href=\"/logout\">Повратак</a></div>"
 
 
     chain = blockchain.chain

@@ -4,27 +4,27 @@
 <div class="container">
     <div  style="background-color: #e3f2fd; padding: 20px; margin-bottom: 20px;">
 
-        <a class="btn-home" style="padding-right: 10px;" >Početna strana</a>
-        <a class="btn-glas" style="padding-right: 10px;">Unos učesnika na izborima</a>
-        <a class="btn-user" style="padding-right: 10px;">Unos komisije na izborima</a>
-        <a href="/results" style="padding-right: 10px;float: right;">Rezultati</a>
-        <a href="/logout" style="padding-right: 10px; float: right;">Odjava</a>
+        <a class="btn-home" style="padding-right: 10px;" >Почетна страна</a>
+        <a class="btn-glas" style="padding-right: 10px;">Унос учесника на изборима</a>
+        <a class="btn-user" style="padding-right: 10px;">Унос комисије на изборима</a>
+        <a href="/logout" style="padding-right: 10px; float: right;">Одјава</a>
+        <a href="/results" style="padding-right: 10px;float: right;">Резултати</a>
            
     </div>  
   <div class="row justify-content-center">
     <div class="col-lg-12 home">
       <div class="jumbotron text-center">
         {% if data['started'] == 1 %}
-          <h2 id="naslov">Izbori su započeti</h2>
-          <p id="podnaslov">Kliknite dole za kraj izbora.</p>          
+          <h2 id="naslov">Избори су почели</h2>
+          <p id="podnaslov">Кликните доле за крај гласања</p>          
         {% else %}
-          <h2>Dobro došli na sajt ovogodišnih izbora</h2>
-          <p>Kliknite dole za pokretanje izbora</p>
+          <h2>Добро дошли на сајт овогодишних избора</h2>
+          <p>Кликните доле за почетак гласања</p>
         {% endif %}
       </div>
       <div style="text-align: center;">
         <form action="/admin" method="post">
-          <button class="btn btn-primary btn-end" >Zatvori/Pokreni glasanje</button>       
+          <button class="btn btn-primary btn-end" >Затвори / Покрени гласање</button>       
         </form>
      </div>
     </div>
@@ -32,23 +32,23 @@
     <div class="col-lg-6 glas">
       <form action="/admin" method="post">
         <div class="form-group">
-          <label for="voting-options">Unesite kandidate: </label>
-          <textarea class="form-control" rows="5" id="voting-options" name="voting-options" placeholder="Novog kandidata unesite u sledećoj liniji ..." required></textarea>
+          <label for="voting-options">Унеси кандидате: </label>
+          <textarea class="form-control" rows="5" id="voting-options" name="voting-options" placeholder="Новог кандидата инесите испод ..." required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Začuvaj podatke</button>
+        <button type="submit" class="btn btn-primary">Зачувај податке</button>
       </form>
     </div>
     <div class="col-lg-6 user">
         <form action="/admin" method="POST">
             <div class="form-group">
-                <label for="title">Korisničko ime</label>
-                <input type="text" class="form-control" id="title" name="user" placeholder="Unesite korisničko ime" required>
+                <label for="title">Корисничко име</label>
+                <input type="text" class="form-control" id="title" name="user" placeholder="Унесите корисничко име" required>
             </div>
             <div class="form-group">
-                <label for="title">Šifra</label>
-                <input type="text" class="form-control" id="title" name="code" placeholder="Unesite šifru" required>
+                <label for="title">Шифра</label>
+                <input type="text" class="form-control" id="title" name="code" placeholder="Унесите шифру" required>
             </div>
-            <button type="submit" class="btn btn-primary">Začuvaj novog korisnika</button>      
+            <button type="submit" class="btn btn-primary">Зачувај новог корисника</button>      
         </form>
     </div>
   </div>

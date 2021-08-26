@@ -82,26 +82,26 @@ span {
   
 
   <form action="/register/" method="post">
-    <h2>Login Form</h2>
+    <h2>Добродошли</h2>
     <div class="imgcontainer">
       <img src="{{url_for('static',filename = 'glasanje.jpg')}}" alt="Avatar" class="avatar" width="150px" height="150px">
     </div>
 
     <div class="container">
       <span>{{ poruka }}</span><br><br>
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <label for="uname"><b>Корисничко име:</b></label>
+      <input type="text" placeholder="Унесите корисничко име" name="uname" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <label for="psw"><b>Шифра</b></label>
+      <input type="password" placeholder="Унесите шифру" name="psw" required>
           
-      <button type="submit">Login</button>
+      <button type="submit">Логовање</button>
       
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <a href="/unos_tokena">Prelaz na glasanje</a><br><br>
-      <a href="/results">Pregled rezultata</a>
+      <a href="/unos_tokena">Прелаз на гласање</a><br><br>
+      <a href="/results">Преглед резултата</a>
     </div>
   </form>
 </div>
